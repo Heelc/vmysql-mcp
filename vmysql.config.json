@@ -1,0 +1,44 @@
+{
+  "server": {
+    "name": "vmysql-mcp",
+    "version": "0.1.0",
+    "defaultQueryLimit": 200,
+    "hardMaxRows": 1000,
+    "defaultTimeoutMs": 10000,
+    "hardTimeoutMs": 30000,
+    "maxConnectionsPerEnv": 2,
+    "logLevel": "info"
+  },
+  "environments": {
+    "dev": {
+      "dsnEnv": "MYSQL_DEV_DSN",
+      "defaultDatabase": "app_dev",
+      "allowedDatabases": ["app_dev", "analytics_dev"],
+      "readOnly": false,
+      "allowWrite": true,
+      "allowDDL": false,
+      "maxRows": 500,
+      "defaultTimeoutMs": 10000
+    },
+    "stg": {
+      "dsnEnv": "MYSQL_STG_DSN",
+      "defaultDatabase": "app_stg",
+      "allowedDatabases": ["app_stg"],
+      "readOnly": false,
+      "allowWrite": true,
+      "allowDDL": false,
+      "maxRows": 300,
+      "defaultTimeoutMs": 10000
+    },
+    "prod_ro": {
+      "dsnEnv": "MYSQL_PROD_RO_DSN",
+      "defaultDatabase": "app",
+      "allowedDatabases": ["app"],
+      "readOnly": true,
+      "allowWrite": false,
+      "allowDDL": false,
+      "maxRows": 200,
+      "defaultTimeoutMs": 8000
+    }
+  }
+}

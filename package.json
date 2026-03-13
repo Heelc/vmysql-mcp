@@ -1,0 +1,50 @@
+{
+  "name": "vmysql-mcp",
+  "version": "0.1.0",
+  "description": "Lightweight multi-environment MySQL MCP server",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "vmysql-mcp": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node --input-type=module -e \"import { chmodSync } from 'node:fs'; chmodSync('dist/cli.js', 0o755);\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "start": "node dist/cli.js",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "mysql",
+    "model-context-protocol",
+    "agent",
+    "cli"
+  ],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Heelc/vmysql-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Heelc/vmysql-mcp/issues"
+  },
+  "homepage": "https://github.com/Heelc/vmysql-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "mysql2": "^3.19.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
+  }
+}
