@@ -400,3 +400,35 @@ SELECT * FROM cte
 ```
 
 如果你还想验证策略边界，可以尝试对只读环境发起写操作，确认它被拒绝。
+
+## 发布流程 Release Flow
+
+仓库现在已经带有两类 GitHub Actions：
+
+- `CI`：在 `push` / `pull_request` 时执行 `npm ci`、`npm run typecheck`、`npm run build`
+- `Publish`：用于 npm 发布前 dry-run 校验，以及 tag 触发的正式发布
+
+推荐发布流程：
+
+1. 先更新 `package.json` 和 `package-lock.json` 中的版本号。
+2. 提交并合并到 `main`。
+3. 确保 `Publish` workflow 的 dry-run 通过。
+4. 在 npm 侧为该仓库配置 Trusted Publisher。
+5. 给对应提交打 tag，例如：
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+6. `push` 这个 tag 后，GitHub Actions 会校验：
+   - tag 版本是否与 `package.json` 一致
+   - 该版本是否尚未发布
+   - 项目是否可以正常 `typecheck`、`build`、`pack`
+7. 校验通过后自动执行 `npm publish --provenance`
+
+注意：
+
+- 如果你还没有在 npm 配置 Trusted Publisher，正式发布 job 会失败。
+- 当前 workflow 走的是无 secret 的 OIDC / Trusted Publishing 路线，不默认依赖 `NPM_TOKEN`。
+- 不要先打 tag 再回头改版本号，这种操作就是主动制造脏发布历史。
