@@ -30,6 +30,9 @@
   ],
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Heelc/vmysql-mcp.git"

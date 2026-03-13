@@ -91,4 +91,4 @@ jobs:
           fi
 
       - name: Publish to npm
-        run: npm publish --provenance
+        run: npm publish --provenance --access public

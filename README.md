@@ -425,10 +425,11 @@ git push origin v0.1.1
    - tag 版本是否与 `package.json` 一致
    - 该版本是否尚未发布
    - 项目是否可以正常 `typecheck`、`build`、`pack`
-7. 校验通过后自动执行 `npm publish --provenance`
+7. 校验通过后自动执行 `npm publish --provenance --access public`
 
 注意：
 
 - 如果你还没有在 npm 配置 Trusted Publisher，正式发布 job 会失败。
+- 首次公开发布时，npm provenance 需要显式 `--access public`；当前 workflow 已经包含这个参数。
 - 当前 workflow 走的是无 secret 的 OIDC / Trusted Publishing 路线，不默认依赖 `NPM_TOKEN`。
 - 不要先打 tag 再回头改版本号，这种操作就是主动制造脏发布历史。
